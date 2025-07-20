@@ -1,5 +1,18 @@
 # Changelog
 
+<a id="v1.7.4"></a>
+## [Privacy Friendly Dicer (v1.7.4)](https://github.com/SecUSo/privacy-friendly-dicer/releases/tag/v1.7.4) - 2025-07-20
+
+## What's Changed
+* Adds CI and updates changelog workflow by [@coderPaddyS](https://github.com/coderPaddyS) in [#42](https://github.com/SecUSo/privacy-friendly-dicer/pull/42)
+* Change versionCode to differentiate from last Google Play version by [@coderPaddyS](https://github.com/coderPaddyS) in [#43](https://github.com/SecUSo/privacy-friendly-dicer/pull/43)
+
+
+**Full Changelog**: https://github.com/SecUSo/privacy-friendly-dicer/compare/v1.7.3...v1.7.4
+
+[Changes][v1.7.4]
+
+
 <a id="v1.7.2"></a>
 ## [Privacy Friendly Dicer (v1.7.2)](https://github.com/SecUSo/privacy-friendly-dicer/releases/tag/v1.7.2) - 2025-01-03
 
@@ -101,6 +114,7 @@ Privacy Friendly Dicer is a simple dicing application. It can be used to roll up
 [Changes][0.9]
 
 
+[v1.7.4]: https://github.com/SecUSo/privacy-friendly-dicer/compare/v1.7.2...v1.7.4
 [v1.7.2]: https://github.com/SecUSo/privacy-friendly-dicer/compare/v1.7.1...v1.7.2
 [v1.7.1]: https://github.com/SecUSo/privacy-friendly-dicer/compare/v1.6.0...v1.7.1
 [v1.6.0]: https://github.com/SecUSo/privacy-friendly-dicer/compare/v1.5.0...v1.6.0
