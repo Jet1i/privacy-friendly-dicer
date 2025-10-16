@@ -34,5 +34,6 @@
     <string name="welcome_description">Choisissez le nombre de dés en ajustant le curseur. Jetez les dés en appuyant sur le bouton ou en secouant le téléphone.</string>
     <string name="confirm_button">OK</string>
     <string name="help_button">Voir l\'aide</string>
-    <string name="slide1_heading">Bienvenu.e !</string>
+    <string name="slide1_heading">Bienvenue !</string>
+    <string name="okay">Okay</string>
 </resources>
