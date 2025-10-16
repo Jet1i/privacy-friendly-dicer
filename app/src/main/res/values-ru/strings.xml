@@ -16,7 +16,7 @@
     <string name="enable_shaking">Бросать с помощью встряхивания телефона</string>
     <string name="vibration_title">Включить вибрацию</string>
     <!--About-->
-    <string name="about">О приложении</string>
+    <string name="about">О программе</string>
     <string name="version_number">Версия v%s</string>
     <string name="about_author">Автор: Karola Marky и сотрудники.</string>
     <string name="about_affiliation">В сотрудничестве с</string>
