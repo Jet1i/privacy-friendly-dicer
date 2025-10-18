@@ -44,4 +44,12 @@
     <string name="activity_main_title">Würfel</string>
     <string name="enable_shaking_desc">Falls aktiviert, dann führt ein Schütteln des Gerätes zu einem neuen Wurf.</string>
     <string name="vibration_desc">Falls aktiviert, dann vibriert das Gerät kurz wenn gewürfelt wurde.</string>
+    <string name="shake_threshold_title">Schüttel-Empfindlichkeit</string>
+    <string-array name="shake_threshold_entries">
+        <item>Sehr Empfindlich</item>
+        <item>Empfindlich</item>
+        <item>Normal</item>
+        <item>Unemfindlich</item>
+        <item>Sehr Unempfindlich</item>
+    </string-array>
 </resources>

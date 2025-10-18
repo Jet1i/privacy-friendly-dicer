@@ -28,7 +28,7 @@ class MainActivity : DrawerActivity() {
     // for Shaking
     private val sensorManager: SensorManager by lazy { getSystemService(SENSOR_SERVICE) as SensorManager }
     private val accelerometer: Sensor? by lazy { sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER) }
-    private val shakeListener = ShakeListener()
+    private val shakeListener = ShakeListener { PFApplicationData.instance(this).shakeThreshold.value }
 
     override fun drawer() = DrawerMenu.build {
         name = getString(R.string.app_name)
@@ -107,9 +107,11 @@ class MainActivity : DrawerActivity() {
         binding.rollButton.setOnClickListener { rollDice() }
 
         //Shaking
-        shakeListener.setOnShakeListener {
-            if (shakingEnabled.value) {
-                rollDice()
+        shakeListener.onShakeListener = object : ShakeListener.OnShakeListener {
+            override fun onShake(count: Int) {
+                if (shakingEnabled.value) {
+                    rollDice()
+                }
             }
         }
     }

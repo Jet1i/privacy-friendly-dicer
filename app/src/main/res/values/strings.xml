@@ -55,4 +55,13 @@
     <string name="activity_main_title">Dice</string>
     <string name="enable_shaking_desc">If enabled, the dices can be rolled by shaking the phone.</string>
     <string name="vibration_desc">If enabled, the device will briefly vibrate on each roll</string>
+
+    <string name="shake_threshold_title">Shake sensitivity</string>
+    <string-array name="shake_threshold_entries">
+        <item>Very Sensitive</item>
+        <item>Sensitive</item>
+        <item>Normal</item>
+        <item>Insensitive</item>
+        <item>Very Insensitive</item>
+    </string-array>
 </resources>

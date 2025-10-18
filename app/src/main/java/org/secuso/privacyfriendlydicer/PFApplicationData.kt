@@ -12,6 +12,7 @@ import org.secuso.pfacore.ui.preferences.appPreferences
 import org.secuso.pfacore.ui.preferences.settings.appearance
 import org.secuso.pfacore.ui.preferences.settings.general
 import org.secuso.pfacore.ui.preferences.settings.preferenceFirstTimeLaunch
+import org.secuso.pfacore.ui.preferences.settings.radio
 import org.secuso.pfacore.ui.preferences.settings.settingDeviceInformationOnErrorReport
 import org.secuso.pfacore.ui.preferences.settings.settingThemeSelector
 import org.secuso.pfacore.ui.preferences.settings.switch
@@ -29,6 +30,8 @@ class PFApplicationData private constructor(context: Context) {
     lateinit var lastChosenPage: Preferable<Int>
         private set
     lateinit var rollByShaking: Preferable<Boolean>
+        private set
+    lateinit var shakeThreshold: Preferable<Float>
         private set
     lateinit var enableVibration: Preferable<Boolean>
         private set
@@ -52,6 +55,19 @@ class PFApplicationData private constructor(context: Context) {
                     title { resource(R.string.enable_shaking) }
                     summary { resource(R.string.enable_shaking_desc) }
                     default = true
+                }
+                shakeThreshold = radio {
+                    key = "shake_threshold"
+                    dependency = {
+                        "enable_shaking" on true
+                    }
+                    default = 1.4F
+                    title { resource(R.string.shake_threshold_title) }
+                    summary { transform { state, value -> state.entries.find { it.value == value }!!.entry } }
+                    entries {
+                        entries(R.array.shake_threshold_entries)
+                        values(resources.getStringArray(R.array.shake_threshold_values).map { it.toFloat() })
+                    }
                 }
                 enableVibration = switch {
                     key = "enable_vibration"
