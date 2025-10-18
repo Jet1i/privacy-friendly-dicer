@@ -20,7 +20,6 @@
     <!--About-->
     <string name="about">Über</string>
     <string name="version_number">Version v%s</string>
-    <string name="about_author">Autor: Karola Marky und Mitwirkende.</string>
     <string name="about_affiliation">In Zusammenarbeit mit</string>
     <string name="privacy_friendly">Diese App gehört zur Gruppe der Privacy Friendly Apps entwickelt vom Karlsruher Institut für Technologie (KIT). Der Quellcode ist unter der GPLv3-Lizenz lizenziert. Bilder sind urheberrechtlich geschützt (KIT und Goolge Inc.)</string>
     <string name="more_info">Weitere Infos unter:</string>
@@ -33,10 +32,16 @@
     <string name="help_permissions_description">Privacy Friendly Würfel nutzt die Berechtigung "Vibration" muss Feedback zu ermöglichen. Diese Berechtigung kann der App ohne Probleme entzogen werden.</string>
     <!-- WelcomeDialog-->
     <string name="help_button">Zur Hilfe</string>
+    <string name="help_permissions_usage">Warum heißt es \"Privacy Friendly\"? Welche Berechtigungen werden benötigt?</string>
     <string name="next">Weiter</string>
     <string name="skip">Überspringen</string>
     <string name="okay">Okay</string>
     <string name="slide1_heading">Willkommen!</string>
     <string name="slide1_text">Die Anzahl der Würfel kann über den Slider gewählt werden. Zum Würfeln kann entweder der Button gedrückt oder das Gerät geschüttelt werden.</string>
     <string name="action_tutorial">Tutorial</string>
+    <string name="help_usage">Was ist Privacy Friendly Dicer?</string>
+    <string name="help_usage_roll">Wie rolle ich den Würfel?</string>
+    <string name="activity_main_title">Würfel</string>
+    <string name="enable_shaking_desc">Falls aktiviert, dann führt ein Schütteln des Gerätes zu einem neuen Wurf.</string>
+    <string name="vibration_desc">Falls aktiviert, dann vibriert das Gerät kurz wenn gewürfelt wurde.</string>
 </resources>
