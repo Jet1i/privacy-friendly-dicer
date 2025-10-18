@@ -1,53 +1,54 @@
-package org.secuso.privacyfriendlydicer.ui;
+package org.secuso.privacyfriendlydicer.ui
 
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import org.secuso.privacyfriendlydicer.dicer.Dicer
 
-import org.secuso.privacyfriendlydicer.dicer.Dicer;
+class DicerViewModel : ViewModel() {
+    private val dicer = Dicer()
+    private var faceNumber = 6
+    private var diceNumber = 5
 
-public class DicerViewModel extends ViewModel {
+    private val dicerLiveData = MutableLiveData<IntArray?>()
+    private val diceNumberLiveData = MutableLiveData<Int?>()
+    private val faceNumberLiveData = MutableLiveData<Int?>()
 
-    private final Dicer dicer = new Dicer();
-    private int faceNumber = 6;
-    private int diceNumber = 5;
-
-    private final MutableLiveData<int[]> dicerLiveData = new MutableLiveData<>();
-    private final MutableLiveData<Integer> diceNumberLiveData = new MutableLiveData<>();
-    private final MutableLiveData<Integer> faceNumberLiveData = new MutableLiveData<>();
-
-    public DicerViewModel() {
-        dicerLiveData.postValue(new int[0]);
+    init {
+        dicerLiveData.postValue(IntArray(0))
     }
 
-    public LiveData<int[]> getDicerLiveData() {
-        return dicerLiveData;
-    }
-    public LiveData<Integer> getDiceNumberLiveData() {
-        return diceNumberLiveData;
-    }
-    public LiveData<Integer> getFaceNumberLiveData() {
-        return faceNumberLiveData;
+    fun getDicerLiveData(): LiveData<IntArray?> {
+        return dicerLiveData
     }
 
-    public int getDiceNumber() {
-        return diceNumber;
-    }
-    public int getFaceNumber() {
-        return faceNumber;
+    fun getDiceNumberLiveData(): LiveData<Int?> {
+        return diceNumberLiveData
     }
 
-    public void setDiceNumber(int diceNumber) {
-        this.diceNumber = diceNumber;
-        diceNumberLiveData.postValue(diceNumber);
+    fun getFaceNumberLiveData(): LiveData<Int?> {
+        return faceNumberLiveData
     }
 
-    public void setFaceNumber(int faceNumber) {
-        this.faceNumber = faceNumber;
-        faceNumberLiveData.postValue(faceNumber);
+    fun getDiceNumber(): Int {
+        return diceNumber
     }
 
-    public void rollDice() {
-        dicerLiveData.postValue(dicer.rollDice(diceNumber, faceNumber));
+    fun getFaceNumber(): Int {
+        return faceNumber
+    }
+
+    fun setDiceNumber(diceNumber: Int) {
+        this.diceNumber = diceNumber
+        diceNumberLiveData.postValue(diceNumber)
+    }
+
+    fun setFaceNumber(faceNumber: Int) {
+        this.faceNumber = faceNumber
+        faceNumberLiveData.postValue(faceNumber)
+    }
+
+    fun rollDice() {
+        dicerLiveData.postValue(dicer.rollDice(diceNumber, faceNumber))
     }
 }
