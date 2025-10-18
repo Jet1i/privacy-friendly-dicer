@@ -4,10 +4,14 @@ import android.hardware.Sensor
 import android.hardware.SensorManager
 import android.os.Bundle
 import android.os.Vibrator
+import android.util.Log
 import android.widget.SeekBar
 import android.widget.SeekBar.OnSeekBarChangeListener
-import androidx.lifecycle.Observer
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
+import kotlinx.coroutines.launch
 import org.secuso.pfacore.model.DrawerElement
 import org.secuso.pfacore.model.DrawerMenu
 import org.secuso.pfacore.ui.activities.DrawerActivity
@@ -21,7 +25,7 @@ class MainActivity : DrawerActivity() {
     private val dicerViewModel by lazy { ViewModelProvider(this).get<DicerViewModel>(DicerViewModel::class.java) }
 
     private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
-    private val adapter: DiceAdapter by lazy { DiceAdapter(dicerViewModel.dicerLiveData.value ?: IntArray(0), layoutInflater) }
+    private val adapter: DiceAdapter by lazy { DiceAdapter(dicerViewModel.currentDices, layoutInflater) }
     private val shakingEnabled by lazy { PFApplicationData.instance(this).rollByShaking }
     private val vibrationEnabled by lazy { PFApplicationData.instance(this).enableVibration }
 
@@ -50,32 +54,35 @@ class MainActivity : DrawerActivity() {
         setContentView(binding.root)
         
         binding.dices.adapter = adapter
+        adapter.onClick = {
+            dicerViewModel.toggleLock(it)
+            adapter.notifyItemChanged(it)
+        }
 
         initResources()
 
-        dicerViewModel.dicerLiveData.observe(this, object : Observer<IntArray> {
-            override fun onChanged(dice: IntArray) {
-                adapter.dices = dice
-                displaySum()
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.CREATED) {
+                dicerViewModel.dices.collect {
+                    Log.d("Dice", "emit received")
+                    adapter.dices = it
+                    displaySum()
 
-                if (vibrationEnabled.value) {
-                    val vibrator = getSystemService(VIBRATOR_SERVICE) as Vibrator
-                    vibrator.vibrate(50)
+                    if (vibrationEnabled.value) {
+                        val vibrator = getSystemService(VIBRATOR_SERVICE) as Vibrator
+                        vibrator.vibrate(50)
+                    }
                 }
             }
-        })
+        }
 
-        dicerViewModel.diceNumberLiveData.observe(this, object : Observer<Int> {
-            override fun onChanged(number: Int) {
-                binding.chooseDiceNumber.text = String.format(Locale.ENGLISH, "%d", number)
-            }
-        })
+        dicerViewModel.diceNumberLiveData.observe(this) {
+            binding.chooseDiceNumber.text = String.format(Locale.ENGLISH, "%d", it)
+        }
 
-        dicerViewModel.faceNumberLiveData.observe(this, object : Observer<Int> {
-            override fun onChanged(number: Int) {
-                binding.chooseFaceNumber.text = String.format(Locale.ENGLISH, "%d", number)
-            }
-        })
+        dicerViewModel.faceNumberLiveData.observe(this) {
+            binding.chooseFaceNumber.text = String.format(Locale.ENGLISH, "%d", it)
+        }
     }
 
     private fun initResources() {
@@ -121,7 +128,8 @@ class MainActivity : DrawerActivity() {
     }
 
     private fun displaySum() {
-        binding.sumTextView.text = getString(R.string.main_dice_sum, adapter.dices.sum().toString())
+        binding.sumTextView.text = getString(R.string.main_dice_sum,
+            adapter.dices.sumOf { it.value }.toString())
     }
 
     public override fun onResume() {

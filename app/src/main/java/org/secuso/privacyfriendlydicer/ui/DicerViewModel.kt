@@ -1,26 +1,38 @@
 package org.secuso.privacyfriendlydicer.ui
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.emptyFlow
+import kotlinx.coroutines.launch
 import org.secuso.privacyfriendlydicer.dicer.Dicer
 
 class DicerViewModel : ViewModel() {
-    private val dicer = Dicer()
-    private var faceNumber = 6
-    private var diceNumber = 5
-
-    private val dicerLiveData = MutableLiveData<IntArray?>()
-    private val diceNumberLiveData = MutableLiveData<Int?>()
-    private val faceNumberLiveData = MutableLiveData<Int?>()
-
-    init {
-        dicerLiveData.postValue(IntArray(0))
+    val dices: MutableSharedFlow<List<Dicer.Dice>> = MutableSharedFlow()
+    private val dicer = Dicer {
+        viewModelScope.launch {
+            _dices = it
+            dices.emit(it)
+        }
     }
+    var faceNumber = 6
+        private set
+    var diceNumber = 5
+        private set
 
-    fun getDicerLiveData(): LiveData<IntArray?> {
-        return dicerLiveData
-    }
+    private var _dices: List<Dicer.Dice> = dicer.rollDiceOnly(diceNumber, faceNumber)
+    val currentDices
+        get() = _dices
+
+    val diceNumberLiveData = MutableLiveData<Int?>()
+    val faceNumberLiveData = MutableLiveData<Int?>()
+
 
     fun getDiceNumberLiveData(): LiveData<Int?> {
         return diceNumberLiveData
@@ -28,14 +40,6 @@ class DicerViewModel : ViewModel() {
 
     fun getFaceNumberLiveData(): LiveData<Int?> {
         return faceNumberLiveData
-    }
-
-    fun getDiceNumber(): Int {
-        return diceNumber
-    }
-
-    fun getFaceNumber(): Int {
-        return faceNumber
     }
 
     fun setDiceNumber(diceNumber: Int) {
@@ -49,6 +53,12 @@ class DicerViewModel : ViewModel() {
     }
 
     fun rollDice() {
-        dicerLiveData.postValue(dicer.rollDice(diceNumber, faceNumber))
+        viewModelScope.launch {
+            dicer.rollDice(diceNumber, faceNumber)
+        }
+    }
+
+    fun toggleLock(position: Int) {
+        dicer.toggleLock(position)
     }
 }

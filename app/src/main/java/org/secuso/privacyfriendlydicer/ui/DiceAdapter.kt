@@ -5,8 +5,10 @@ import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
+import android.graphics.PorterDuff
 import android.graphics.Typeface
 import android.graphics.drawable.BitmapDrawable
+import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.view.animation.AlphaAnimation
@@ -15,24 +17,29 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import org.secuso.privacyfriendlydicer.R
 import org.secuso.privacyfriendlydicer.databinding.DiceBinding
+import org.secuso.privacyfriendlydicer.dicer.Dicer
 import java.util.Locale
 
-class DiceAdapter(dices: IntArray, private val layoutInflater: LayoutInflater): RecyclerView.Adapter<DiceAdapter.ViewHolder>() {
-    var dices: IntArray = dices
+class DiceAdapter(dices: List<Dicer.Dice>, private val layoutInflater: LayoutInflater): RecyclerView.Adapter<DiceAdapter.ViewHolder>() {
+    var dices: List<Dicer.Dice> = dices
         set(value) {
             field = value
             @SuppressLint("NotifyDataSetChanged")
             notifyDataSetChanged()
         }
 
+    var onClick: ((pos: Int) -> Unit)? = null
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(DiceBinding.inflate(layoutInflater, parent, false))
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        holder.binding.locked = dices[position].locked
         holder.binding.dice.apply {
-            if (dices[position] <= 6) {
-                setBackgroundResource(when (dices[position]) {
+            setOnClickListener { onClick?.invoke(position) }
+            if (dices[position].value <= 6) {
+                setBackgroundResource(when (dices[position].value) {
                     1 -> R.drawable.d1
                     2 -> R.drawable.d2
                     3 -> R.drawable.d3
