@@ -17,6 +17,12 @@ class Dicer(val onChange: (List<Dice>) -> Unit) {
         var locked: Boolean = false
     }
 
+    enum class SortOptions {
+        ASCENDING,
+        DESCENDING,
+        NONE
+    }
+
     fun rollDice(poolSize: Int, faceNum: Int) {
         if (dices.size != poolSize) {
             dices = (0 until poolSize).map { Dice(random.nextInt(faceNum) + 1) }.toMutableList()
