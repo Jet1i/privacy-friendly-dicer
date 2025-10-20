@@ -64,4 +64,20 @@
         <item>Insensitive</item>
         <item>Very Insensitive</item>
     </string-array>
+
+    <string name="new_dice_mode_title">Create a new dice mode</string>
+    <string name="new_dice_mode_create_label">Create</string>
+    <string name="restart_button">Restart</string>
+    <string name="dialog_select_game_mode_first_title">Select dice mode first</string>
+    <string name="dialog_select_game_mode_first_desc">Currently no dice mode is selected. Please select or create one first.</string>
+    <string name="activity_dice_mode_title">Dice Mode</string>
+    <string name="activity_manage_dice_modes_title">Dice Modes</string>
+    <string name="manage_dice_mode_fab_desc">Create a new dice mode</string>
+    <string name="dialog_new_dice_mode_dice_mode_label">Dice mode</string>
+    <string name="dialog_new_dice_mode_rounds">Max rounds</string>
+    <string name="dialog_new_dice_mode_face">Max Face</string>
+    <string name="dialog_new_dice_mode_add">Add dice</string>
+    <string name="dice_mode_rounds_label">Rounds:</string>
+    <string name="dice_mode_dice_mode_label">Dice Mode:</string>
+    <string name="dice_mode_dice_label">Dice:</string>
 </resources>

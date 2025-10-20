@@ -35,6 +35,8 @@ class PFApplicationData private constructor(context: Context) {
         private set
     lateinit var enableVibration: Preferable<Boolean>
         private set
+    lateinit var selectedDiceMode: Preferable<Int>
+        private set
 
     private val preferences = appPreferences(context) {
         preferences {
@@ -42,6 +44,11 @@ class PFApplicationData private constructor(context: Context) {
             lastChosenPage = preference {
                 key = "lastChosenPage"
                 default = 0
+                backup = false
+            }
+            selectedDiceMode = preference {
+                key = "selectedDiceMode"
+                default = -1
                 backup = false
             }
         }
@@ -61,7 +68,7 @@ class PFApplicationData private constructor(context: Context) {
                     dependency = {
                         "enable_shaking" on true
                     }
-                    default = 1.4F
+                    default = 1.5F
                     title { resource(R.string.shake_threshold_title) }
                     summary { transform { state, value -> state.entries.find { it.value == value }!!.entry } }
                     entries {
