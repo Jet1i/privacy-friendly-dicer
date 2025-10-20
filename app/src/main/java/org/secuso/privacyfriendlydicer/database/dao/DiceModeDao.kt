@@ -5,17 +5,19 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import kotlinx.coroutines.flow.Flow
 import org.secuso.privacyfriendlydicer.database.model.DiceMode
 
 @Dao
 interface DiceModeDao {
 
     @Query("SELECT * FROM dice_modes")
-    fun getAll(): Flow<List<DiceMode>>
+    fun all(): List<DiceMode>
 
-    @Query("SELECT * FROM dice_modes")
-    fun getAllSync(): List<DiceMode>
+    @Query("SELECT EXISTS (SELECT * FROM dice_modes WHERE id = :diceMode)")
+    fun isValidDiceMode(diceMode: Int): Boolean
+
+    @Query("SELECT * FROM dice_modes WHERE id = :diceMode")
+    fun getDiceMode(diceMode: Int): DiceMode
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun add(mode: DiceMode)
