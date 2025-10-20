@@ -1,7 +1,7 @@
 package org.secuso.privacyfriendlydicer.dicer
 
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
+import android.annotation.SuppressLint
+import kotlinx.serialization.Serializable
 import java.security.SecureRandom
 
 /**
@@ -11,10 +11,13 @@ class Dicer(val onChange: (List<Dice>) -> Unit) {
 
     private var dices: MutableList<Dice> = mutableListOf()
 
-    class Dice(value: Int) {
-        var value: Int = value
-            internal set
-        var locked: Boolean = false
+    // This opt-in usage is a bug with the used kotlinx.serialization version.
+    // Therefore this is safe.
+    @SuppressLint("UnsafeOptInUsageError")
+    @Serializable
+    class Dice(internal var _value: Int, var faces: Int, var locked: Boolean = false) {
+        val value: Int
+            get() = _value
     }
 
     enum class SortOptions {
@@ -23,27 +26,22 @@ class Dicer(val onChange: (List<Dice>) -> Unit) {
         NONE
     }
 
-    fun rollDice(poolSize: Int, faceNum: Int) {
-        if (dices.size != poolSize) {
-            dices = (0 until poolSize).map { Dice(random.nextInt(faceNum) + 1) }.toMutableList()
-        } else {
-            for (dice in dices) {
-                if (!dice.locked) {
-                    dice.value = random.nextInt(faceNum) + 1
-                }
-            }
-        }
-        onChange(dices)
+    fun reloadDice(diceNumber: Int, faceNum: Int) {
+        dices = (0 until diceNumber).map { Dice(random.nextInt(faceNum) + 1, faceNum) }.toMutableList()
     }
 
-    fun rollDiceOnly(poolSize: Int, faceNum: Int): List<Dice> {
-        if (dices.size != poolSize) {
-            dices = (0 until poolSize).map { Dice(random.nextInt(faceNum) + 1) }.toMutableList()
-        } else {
-            for (dice in dices) {
-                if (!dice.locked) {
-                    dice.value = random.nextInt(faceNum) + 1
-                }
+    fun loadDice(dice: List<Dice>) {
+        dices = dice.toMutableList()
+    }
+
+    fun rollDice() {
+        onChange(rollDiceOnly())
+    }
+
+    fun rollDiceOnly(): List<Dice> {
+        for (dice in dices) {
+            if (!dice.locked) {
+                dice._value = random.nextInt(dice.faces) + 1
             }
         }
         return dices
