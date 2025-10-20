@@ -1,14 +1,12 @@
-package org.secuso.privacyfriendlydicer.ui
+package org.secuso.privacyfriendlydicer.ui.adapter
 
 import android.annotation.SuppressLint
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
-import android.graphics.PorterDuff
 import android.graphics.Typeface
 import android.graphics.drawable.BitmapDrawable
-import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.view.animation.AlphaAnimation
@@ -16,6 +14,7 @@ import android.view.animation.Animation
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import org.secuso.privacyfriendlydicer.R
+import org.secuso.privacyfriendlydicer.database.model.DiceMode
 import org.secuso.privacyfriendlydicer.databinding.DiceBinding
 import org.secuso.privacyfriendlydicer.dicer.Dicer
 import java.util.Locale
@@ -39,15 +38,17 @@ class DiceAdapter(dices: List<Dicer.Dice>, private val layoutInflater: LayoutInf
         holder.binding.dice.apply {
             setOnClickListener { onClick?.invoke(position) }
             if (dices[position].value <= 6) {
-                setBackgroundResource(when (dices[position].value) {
-                    1 -> R.drawable.d1
-                    2 -> R.drawable.d2
-                    3 -> R.drawable.d3
-                    4 -> R.drawable.d4
-                    5 -> R.drawable.d5
-                    6 -> R.drawable.d6
-                    else -> -1
-                })
+                setBackgroundResource(
+                    when (dices[position].value) {
+                        1 -> R.drawable.d1
+                        2 -> R.drawable.d2
+                        3 -> R.drawable.d3
+                        4 -> R.drawable.d4
+                        5 -> R.drawable.d5
+                        6 -> R.drawable.d6
+                        else -> -1
+                    }
+                )
             } else {
                 val height = 256;
                 val width = 256;
@@ -65,8 +66,13 @@ class DiceAdapter(dices: List<Dicer.Dice>, private val layoutInflater: LayoutInf
                     this.textSize = textSize
                     isAntiAlias = true
                 }
-                canvas.drawText(String.format(Locale.ENGLISH, "%d", dices[position]), width / 2.0f, height / 2.0f + textSize / 3.0f, p);
-                setBackgroundDrawable(BitmapDrawable(holder.binding.dice.context.resources, result))
+                canvas.drawText(String.Companion.format(Locale.ENGLISH, "%d", dices[position].value), width / 2.0f, height / 2.0f + textSize / 3.0f, p);
+                setBackgroundDrawable(
+                    BitmapDrawable(
+                        holder.binding.dice.context.resources,
+                        result
+                    )
+                )
             }
 
             val animation: Animation = AlphaAnimation(0.0f, 1.0f).apply {
@@ -79,6 +85,11 @@ class DiceAdapter(dices: List<Dicer.Dice>, private val layoutInflater: LayoutInf
     }
 
     override fun getItemCount() = dices.size
+
+    fun addDice(faces: Int) {
+        dices = dices + Dicer.Dice(faces, faces)
+        notifyItemInserted(dices.size)
+    }
 
 
     class ViewHolder(val binding: DiceBinding): RecyclerView.ViewHolder(binding.root) {
