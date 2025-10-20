@@ -8,10 +8,9 @@ import org.secuso.privacyfriendlydicer.dicer.Dicer
 @Entity(tableName = "dice_modes", indices = [Index(value = ["name"], unique = true)])
 data class DiceMode(
     @PrimaryKey(autoGenerate = true)
-    val id: Int,
+    val id: Int = 0,
     val name: String,
-    val numDices: Int,
-    val faces: Int,
+    val dices: List<Dicer.Dice>,
     val rounds: Int,
     val sortingOption: Dicer.SortOptions
 )

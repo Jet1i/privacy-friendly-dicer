@@ -1,5 +1,6 @@
 plugins {
     id("com.google.devtools.ksp")
+    id("org.jetbrains.kotlin.plugin.serialization")
 }
 
 apply plugin: 'com.android.application'
@@ -40,16 +41,16 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_17
-        targetCompatibility JavaVersion.VERSION_17
+        sourceCompatibility JavaVersion.VERSION_21
+        targetCompatibility JavaVersion.VERSION_21
     }
 
     kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_17.toString()
+        jvmTarget = JavaVersion.VERSION_21.toString()
     }
 
     kotlin {
-        jvmToolchain(17)
+        jvmToolchain(21)
     }
 
     android.applicationVariants.configureEach { variant ->
@@ -90,4 +91,6 @@ dependencies {
     implementation "androidx.room:room-runtime:$room_version"
     ksp("androidx.room:room-compiler:$room_version")
     implementation "androidx.room:room-ktx:$room_version"
+
+    implementation 'org.jetbrains.kotlinx:kotlinx-serialization-json:1.9.0'
 }
