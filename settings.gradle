@@ -1,2 +1,23 @@
+pluginManagement {
+    repositories {
+        mavenCentral()
+        google()
+        gradlePluginPortal()
+    }
+}
+
 include ':app'
-includeBuild("libs/pfa-core")
+
+dependencyResolutionManagement {
+    versionCatalogs {
+        libs {
+            from(files("libs/pfa-core/libs.versions.toml"))
+        }
+    }
+}
+include ':model'
+include ':ui-view'
+project(':model').projectDir = new File(rootDir, 'libs/pfa-core/model/')
+project(':ui-view').projectDir = new File(rootDir, 'libs/pfa-core/ui-view/')
+include ':backup-api'
+project(':backup-api').projectDir = new File('libs/pfa-core/libs/privacy-friendly-backup-api/BackupAPI')
