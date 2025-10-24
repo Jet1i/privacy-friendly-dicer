@@ -6,6 +6,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.view.View
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
@@ -15,6 +16,7 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.coroutines.launch
 import org.secuso.pfacore.model.DrawerElement
+import org.secuso.pfacore.model.dialog.AbortElseDialog
 import org.secuso.pfacore.model.dialog.ValueSelectionDialog
 import org.secuso.pfacore.ui.dialog.ShowValueSelectionDialog
 import org.secuso.pfacore.ui.dialog.show
@@ -33,10 +35,11 @@ class ManageDiceModesActivity: BaseActivity() {
 
     private val viewModel by lazy { ViewModelProvider(this)[ManageDiceModeViewModel::class.java] }
     val diceMode by lazy { PFApplicationData.instance(this).selectedDiceMode }
+    val deleteDiceModeDialog by lazy { PFApplicationData.instance(this).deleteDiceModeDialog }
 
     private lateinit var dialogBinding: DialogNewDiceModeBinding
     private lateinit var adapter: DiceModeAdapter
-    private val createDialog by lazy{
+    private val createDialog by lazy {
         ShowValueSelectionDialog(
             binding = dialogBinding,
             extraction = {
@@ -92,6 +95,20 @@ class ManageDiceModesActivity: BaseActivity() {
         )
     }
 
+    interface DeleteDialogActions {
+        fun onDelete(): Unit
+        fun onAbort(): Unit
+    }
+
+    private fun deleteDialog(modeToDelete: DiceMode, action: DeleteDialogActions) = AbortElseDialog.build(this) {
+        acceptLabel = ContextCompat.getString(this@ManageDiceModesActivity, R.string.manage_dice_mode_delete_dialog_delete_label)
+        title = { getString(R.string.manage_dice_mode_delete_dialog_title, modeToDelete.name) }
+        content = { ContextCompat.getString(this@ManageDiceModesActivity, R.string.manage_dice_mode_delete_dialog_desc) }
+        onElse = action::onDelete
+        onAbort = action::onAbort
+        handleDismiss = true
+    }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -108,9 +125,24 @@ class ManageDiceModesActivity: BaseActivity() {
             override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder) = false
             override fun isLongPressDragEnabled() = false
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                viewModel.removeDiceMode(adapter.diceModes[viewHolder.adapterPosition])
-                diceMode.value = -1
-                reloadDrawer()
+                val mode = adapter.diceModes[viewHolder.adapterPosition]
+                val delete = {
+                    viewModel.removeDiceMode(mode)
+                    adapter.notifyItemRemoved(viewHolder.adapterPosition)
+                    diceMode.value = -1
+                    reloadDrawer()
+                }
+                if (deleteDiceModeDialog.value) {
+                    deleteDialog(mode, object : DeleteDialogActions {
+                        override fun onDelete() = delete()
+                        override fun onAbort() {
+                            Log.d("Called", "called")
+                            adapter.notifyItemChanged(viewHolder.adapterPosition)
+                        }
+                    }).show()
+                } else {
+                    delete()
+                }
             }
         }
         val ith = ItemTouchHelper(ithCallback)

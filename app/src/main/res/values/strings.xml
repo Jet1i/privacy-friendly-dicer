@@ -26,7 +26,7 @@
     <!--About-->
     <string name="about">About</string>
     <string name="version_number">Version v%s</string>
-    <string name="about_author_names" translatable="false">Karola Marky</string>
+    <string name="about_author_names" translatable="false">Karola Marky, Patrick Schneider (v2.0.0)</string>
     <string name="about_affiliation">In affiliation with</string>
     <string name="privacy_friendly">This application belongs to the group of Privacy Friendly Apps developed by Karlsruher Institute for Technology (KIT). Sourcecode licensed under GPLv3. Images copyright KIT and Google Inc.</string>
     <string name="more_info">More information can be found on:</string>
@@ -80,4 +80,9 @@
     <string name="dice_mode_rounds_label">Rounds:</string>
     <string name="dice_mode_dice_mode_label">Dice Mode:</string>
     <string name="dice_mode_dice_label">Dice:</string>
+    <string name="manage_dice_mode_delete_dialog_delete_label">Delete</string>
+    <string name="manage_dice_mode_delete_dialog_title">Delete Dice Mode %s</string>
+    <string name="manage_dice_mode_delete_dialog_desc">Are you really sure you want to delete this Dice Mode? This action cannot be undone.</string>
+    <string name="preference_deleteDiceModeDialog_title">Confirm deletion of Dice Mode</string>
+    <string name="preference_deleteDiceModeDialog_desc">If enabled, you have to confirm the deletion of a Dice Mode to prevent accidental deletion.</string>
 </resources>

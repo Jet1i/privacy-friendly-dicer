@@ -37,6 +37,7 @@ class PFApplicationData private constructor(context: Context) {
         private set
     lateinit var selectedDiceMode: Preferable<Int>
         private set
+    lateinit var deleteDiceModeDialog: Preferable<Boolean>
 
     private val preferences = appPreferences(context) {
         preferences {
@@ -80,6 +81,12 @@ class PFApplicationData private constructor(context: Context) {
                     key = "enable_vibration"
                     title { resource(R.string.vibration_title) }
                     summary { resource(R.string.vibration_desc) }
+                    default = true
+                }
+                deleteDiceModeDialog = switch {
+                    key = "deleteDiceModeDialog"
+                    title { resource(R.string.preference_deleteDiceModeDialog_title) }
+                    summary { resource(R.string.preference_deleteDiceModeDialog_desc)}
                     default = true
                 }
                 includeDeviceDataInReport = settingDeviceInformationOnErrorReport
