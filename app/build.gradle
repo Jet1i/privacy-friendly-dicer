@@ -14,8 +14,8 @@ android {
         applicationId "org.secuso.privacyfriendlydicer"
         minSdkVersion 17
         targetSdkVersion 34
-        versionCode 100
-        versionName "1.7.4"
+        versionCode 101
+        versionName "2.0.0"
 
         multiDexEnabled true
     }
