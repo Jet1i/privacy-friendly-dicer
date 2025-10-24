@@ -44,4 +44,32 @@
     <string name="activity_main_title">Würfel</string>
     <string name="enable_shaking_desc">Falls aktiviert, dann führt ein Schütteln des Gerätes zu einem neuen Wurf.</string>
     <string name="vibration_desc">Falls aktiviert, dann vibriert das Gerät kurz wenn gewürfelt wurde.</string>
+    <string name="shake_threshold_title">Schüttel-Empfindlichkeit</string>
+    <string-array name="shake_threshold_entries">
+        <item>Sehr Empfindlich</item>
+        <item>Empfindlich</item>
+        <item>Normal</item>
+        <item>Unemfindlich</item>
+        <item>Sehr Unempfindlich</item>
+    </string-array>
+    <string name="new_dice_mode_title">Erstelle einen neuen Würfelmodus</string>
+    <string name="new_dice_mode_create_label">Erstelle</string>
+    <string name="restart_button">Neustart</string>
+    <string name="dialog_select_game_mode_first_title">Wähle zuerst einen Würfelmodus aus</string>
+    <string name="dialog_select_game_mode_first_desc">Aktuell ist kein Würfelmodus ausgewählt. Bitte wähle oder erstelle erst einen.</string>
+    <string name="activity_dice_mode_title">Würfelmodus</string>
+    <string name="activity_manage_dice_modes_title">Würfelmodi</string>
+    <string name="manage_dice_mode_fab_desc">Erstelle einen neuen Würfelmodus</string>
+    <string name="dialog_new_dice_mode_dice_mode_label">Würfelmodus</string>
+    <string name="dialog_new_dice_mode_rounds">Rundenanzahl</string>
+    <string name="dialog_new_dice_mode_face">Höchste Zahl</string>
+    <string name="dialog_new_dice_mode_add">Würfel erstellen</string>
+    <string name="dice_mode_rounds_label">Runde</string>
+    <string name="dice_mode_dice_mode_label">Würfelmodus:</string>
+    <string name="dice_mode_dice_label">Würfel:</string>
+    <string name="manage_dice_mode_delete_dialog_delete_label">Löschen</string>
+    <string name="manage_dice_mode_delete_dialog_title">Lösche Würfelmodus %s</string>
+    <string name="manage_dice_mode_delete_dialog_desc">Möchtest du den Würfelmodus wirklich löschen? Einmal gelöscht kann der Würfelmodus nicht wiederhergestellt werden.</string>
+    <string name="preference_deleteDiceModeDialog_title">Bestätige Löschen eines Würfelmodus</string>
+    <string name="preference_deleteDiceModeDialog_desc">Falls aktiviert, dann muss das Löschen eines Würfelmodus bestätigt werden um ein ungewolltes Löschen zu verhindern</string>
 </resources>

@@ -1,6 +1,10 @@
-apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-kapt'
+plugins {
+    alias(libs.plugins.android.app)
+    alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.kotlin.kapt)
+    alias(libs.plugins.ksp)
+    alias(libs.plugins.ktx.serialization)
+}
 
 android {
     compileSdk 34
@@ -10,8 +14,8 @@ android {
         applicationId "org.secuso.privacyfriendlydicer"
         minSdkVersion 17
         targetSdkVersion 34
-        versionCode 100
-        versionName "1.7.4"
+        versionCode 101
+        versionName "2.0.0"
 
         multiDexEnabled true
     }
@@ -36,16 +40,16 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_17
-        targetCompatibility JavaVersion.VERSION_17
+        sourceCompatibility JavaVersion.VERSION_21
+        targetCompatibility JavaVersion.VERSION_21
     }
 
     kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_17.toString()
+        jvmTarget = JavaVersion.VERSION_21.toString()
     }
 
     kotlin {
-        jvmToolchain(17)
+        jvmToolchain(21)
     }
 
     android.applicationVariants.configureEach { variant ->
@@ -66,17 +70,23 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    testImplementation 'junit:junit:4.12'
-    implementation 'androidx.appcompat:appcompat:1.2.0'
-    implementation 'com.google.android.material:material:1.2.1'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.1'
-    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
 
-    implementation("org.secuso.pfa-core:model")
-    implementation("org.secuso.pfa-core:ui-view")
+    testImplementation libs.junit
+    implementation libs.ax.appcompat
+    implementation libs.material
+    implementation libs.ax.constraintlayout
+    implementation libs.bundles.ax.lifecycle
 
-    def work_version = "2.9.1" // latest version still supporting API 17; 2.10.0 requires API 21
-    implementation "androidx.work:work-runtime:$work_version"
-    implementation "androidx.work:work-runtime-ktx:$work_version"
-    androidTestImplementation "androidx.work:work-testing:$work_version"
+    implementation(project(":model"))
+    implementation(project(":ui-view"))
+
+    implementation(libs.ax.room)
+    ksp(libs.ax.room.compiler)
+    implementation(libs.ax.room.ktx)
+
+    implementation(libs.ax.work.runtime)
+    implementation(libs.ax.work.runtime.ktx)
+    androidTestImplementation(libs.ax.work.testing)
+
+    implementation libs.ktx.serialization.json
 }

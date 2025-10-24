@@ -17,6 +17,14 @@
             android:label="@string/app_name"
             android:launchMode="singleTop"
             android:theme="@style/PrivacyFriendlyCoreTheme.NoActionBar"/>
+        <activity
+            android:name=".ui.ManageDiceModesActivity"
+            android:label="@string/activity_manage_dice_modes_title"
+            android:theme="@style/PrivacyFriendlyCoreTheme.NoActionBar" />
+        <activity
+            android:name=".ui.DiceModeActivity"
+            android:label="@string/activity_dice_mode_title"
+            android:theme="@style/PrivacyFriendlyCoreTheme.NoActionBar" />
 
         <service
             android:name="org.secuso.pfacore.backup.PFABackupService"

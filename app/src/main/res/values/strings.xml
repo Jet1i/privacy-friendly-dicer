@@ -26,7 +26,7 @@
     <!--About-->
     <string name="about">About</string>
     <string name="version_number">Version v%s</string>
-    <string name="about_author_names" translatable="false">Karola Marky</string>
+    <string name="about_author_names" translatable="false">Karola Marky, Patrick Schneider (v2.0.0)</string>
     <string name="about_affiliation">In affiliation with</string>
     <string name="privacy_friendly">This application belongs to the group of Privacy Friendly Apps developed by Karlsruher Institute for Technology (KIT). Sourcecode licensed under GPLv3. Images copyright KIT and Google Inc.</string>
     <string name="more_info">More information can be found on:</string>
@@ -55,4 +55,34 @@
     <string name="activity_main_title">Dice</string>
     <string name="enable_shaking_desc">If enabled, the dices can be rolled by shaking the phone.</string>
     <string name="vibration_desc">If enabled, the device will briefly vibrate on each roll</string>
+
+    <string name="shake_threshold_title">Shake sensitivity</string>
+    <string-array name="shake_threshold_entries">
+        <item>Very Sensitive</item>
+        <item>Sensitive</item>
+        <item>Normal</item>
+        <item>Insensitive</item>
+        <item>Very Insensitive</item>
+    </string-array>
+
+    <string name="new_dice_mode_title">Create a new dice mode</string>
+    <string name="new_dice_mode_create_label">Create</string>
+    <string name="restart_button">Restart</string>
+    <string name="dialog_select_game_mode_first_title">Select dice mode first</string>
+    <string name="dialog_select_game_mode_first_desc">Currently no dice mode is selected. Please select or create one first.</string>
+    <string name="activity_dice_mode_title">Dice Mode</string>
+    <string name="activity_manage_dice_modes_title">Dice Modes</string>
+    <string name="manage_dice_mode_fab_desc">Create a new dice mode</string>
+    <string name="dialog_new_dice_mode_dice_mode_label">Dice mode</string>
+    <string name="dialog_new_dice_mode_rounds">Max rounds</string>
+    <string name="dialog_new_dice_mode_face">Max Face</string>
+    <string name="dialog_new_dice_mode_add">Add dice</string>
+    <string name="dice_mode_rounds_label">Rounds:</string>
+    <string name="dice_mode_dice_mode_label">Dice Mode:</string>
+    <string name="dice_mode_dice_label">Dice:</string>
+    <string name="manage_dice_mode_delete_dialog_delete_label">Delete</string>
+    <string name="manage_dice_mode_delete_dialog_title">Delete Dice Mode %s</string>
+    <string name="manage_dice_mode_delete_dialog_desc">Are you really sure you want to delete this Dice Mode? This action cannot be undone.</string>
+    <string name="preference_deleteDiceModeDialog_title">Confirm deletion of Dice Mode</string>
+    <string name="preference_deleteDiceModeDialog_desc">If enabled, you have to confirm the deletion of a Dice Mode to prevent accidental deletion.</string>
 </resources>
