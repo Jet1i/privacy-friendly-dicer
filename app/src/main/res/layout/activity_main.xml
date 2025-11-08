@@ -87,7 +87,7 @@
 
     <Button
         android:id="@+id/rollButton"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:background="@drawable/button_fullwidth"
@@ -95,9 +95,24 @@
         android:textColor="@color/white"
         android:textSize="20sp"
         android:layout_marginTop="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintEnd_toStartOf="@+id/chooseSoundButton"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/seekBarFace" />
+
+    <Button
+        android:id="@+id/chooseSoundButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/button_fullwidth"
+        android:contentDescription="@string/choose_sound_button_desc"
+        android:text="@string/choose_sound_button_label"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@id/rollButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/rollButton"
+        app:layout_constraintTop_toTopOf="@id/rollButton" />
 
     <TextView
         android:id="@+id/sumTextView"

@@ -95,15 +95,28 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginEnd="8dp"
         android:background="@drawable/button_fullwidth"
         android:text="@string/roll_button"
         android:textColor="@color/white"
         android:textSize="20sp"
-        app:layout_constraintEnd_toStartOf="@id/center"
+        app:layout_constraintEnd_toStartOf="@+id/chooseSoundButton"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/seekBarFace"
-        android:layout_marginRight="16dp" />
+        app:layout_constraintTop_toBottomOf="@id/seekBarFace" />
+
+    <Button
+        android:id="@+id/chooseSoundButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/button_fullwidth"
+        android:contentDescription="@string/choose_sound_button_desc"
+        android:text="@string/choose_sound_button_label"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@id/rollButton"
+        app:layout_constraintEnd_toStartOf="@id/center"
+        app:layout_constraintStart_toEndOf="@id/rollButton"
+        app:layout_constraintTop_toTopOf="@id/rollButton" />
 
     <TextView
         android:id="@+id/sumTextView"

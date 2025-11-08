@@ -16,6 +16,7 @@ import org.secuso.pfacore.ui.preferences.settings.radio
 import org.secuso.pfacore.ui.preferences.settings.settingDeviceInformationOnErrorReport
 import org.secuso.pfacore.ui.preferences.settings.settingThemeSelector
 import org.secuso.pfacore.ui.preferences.settings.switch
+import org.secuso.privacyfriendlydicer.sound.SoundPreferences
 import org.secuso.pfacore.ui.tutorial.buildTutorial
 
 class PFApplicationData private constructor(context: Context) {
@@ -34,6 +35,8 @@ class PFApplicationData private constructor(context: Context) {
     lateinit var shakeThreshold: Preferable<Float>
         private set
     lateinit var enableVibration: Preferable<Boolean>
+        private set
+    lateinit var soundEnabled: Preferable<Boolean>
         private set
     lateinit var selectedDiceMode: Preferable<Int>
         private set
@@ -58,6 +61,12 @@ class PFApplicationData private constructor(context: Context) {
                 theme = settingThemeSelector
             }
             general {
+                soundEnabled = switch {
+                    key = SoundPreferences.KEY_SOUND_ENABLED
+                    title { resource(R.string.pref_sound_enabled_title) }
+                    summary { resource(R.string.pref_sound_enabled_summary) }
+                    default = true
+                }
                 rollByShaking = switch {
                     key = "enable_shaking"
                     title { resource(R.string.enable_shaking) }
